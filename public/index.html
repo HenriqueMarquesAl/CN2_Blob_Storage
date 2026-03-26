@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure Cloud Storage | Henrique</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen font-sans">
+
+    <nav class="bg-blue-600 text-white shadow-lg p-4 mb-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold flex items-center gap-2">
+                <i class="fas-solid fa-cloud"></i> Azure Blob Storage
+            </h1>
+            <span class="text-sm bg-blue-700 px-3 py-1 rounded-full">Henrique Marques</span>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 max-w-4xl">
+        
+        <section class="bg-white rounded-xl shadow-md p-6 mb-8 border border-gray-100">
+            <h2 class="text-lg font-semibold mb-4 text-gray-700 flex items-center gap-2">
+                <i class="fa-solid fa-arrow-up-from-bracket text-blue-500"></i> Enviar Novo Arquivo
+            </h2>
+            <form action="/upload" method="POST" enctype="multipart/form-data" class="flex flex-col md:flex-row gap-4">
+                <input type="file" name="arquivo" required 
+                    class="flex-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-200 rounded-lg p-1">
+                <button type="submit" 
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-all transform hover:scale-105 shadow-md">
+                    Upload
+                </button>
+            </form>
+        </section>
+
+        <section>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold text-gray-700">Arquivos na Nuvem</h2>
+                <button onclick="carregarArquivos()" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fa-solid fa-rotate-right"></i> Atualizar Lista
+                </button>
+            </div>
+
+            <div id="lista-arquivos" class="grid gap-3">
+                <div class="text-center py-10 text-gray-400 italic">Carregando arquivos...</div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Função para buscar os arquivos e montar o visual
+        async function carregarArquivos() {
+            const listaDiv = document.getElementById('lista-arquivos');
+            try {
+                const res = await fetch('/listar_json'); // Vamos criar essa rota no app.js
+                const arquivos = await res.json();
+                
+                if (arquivos.length === 0) {
+                    listaDiv.innerHTML = '<div class="bg-white p-6 rounded-lg text-center text-gray-500">Nenhum arquivo encontrado no container.</div>';
+                    return;
+                }
+
+                listaDiv.innerHTML = arquivos.map(nome => `
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 flex justify-between items-center hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-regular fa-file-image text-blue-400 text-xl"></i>
+                            <span class="font-medium text-gray-700 truncate max-w-[200px] md:max-w-md">${nome}</span>
+                        </div>
+                        <div class="flex gap-2">
+                             <a href="/download/${nome}" class="text-gray-500 hover:text-blue-600 p-2 rounded-full hover:bg-blue-50 transition-colors" title="Baixar">
+                                <i class="fa-solid fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                listaDiv.innerHTML = '<div class="text-red-500 p-4">Erro ao carregar arquivos. Verifique o servidor.</div>';
+            }
+        }
+
+        // Carrega ao abrir a página
+        carregarArquivos();
+    </script>
+</body>
+</html>
