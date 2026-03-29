@@ -8,11 +8,20 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
+    "@azure/data-tables": "^13.3.2",
     "@azure/storage-blob": "^12.31.0",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "multer": "^2.1.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenriqueMarquesAl/CN2_Blob_Storage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HenriqueMarquesAl/CN2_Blob_Storage/issues"
+  },
+  "homepage": "https://github.com/HenriqueMarquesAl/CN2_Blob_Storage#readme",
+  "description": ""
 }
