@@ -1,6 +1,6 @@
-# ☁️ CN2_Blob_Storage - Azure Cloud Integration
+# ☁️ CN2_Blob_Storage - Azure Cloud Integration & Audit
 
-Este projeto é uma aplicação **Node.js** desenvolvida para a disciplina de Cloud Computing, focada na integração prática com o **Azure Blob Storage**. A aplicação permite o gerenciamento de arquivos diretamente na nuvem da Microsoft, utilizando o SDK oficial da Azure.
+Este projeto é uma aplicação **Node.js** desenvolvida para a disciplina de Cloud Computing na **FATEC Cotia**. O foco é a integração prática com múltiplos serviços de armazenamento da Microsoft Azure, permitindo a gestão de arquivos (Blobs) e a auditoria de operações em tempo real (Tables).
 
 ---
 
@@ -8,10 +8,11 @@ Este projeto é uma aplicação **Node.js** desenvolvida para a disciplina de Cl
 
 O sistema oferece uma interface web profissional e responsiva para realizar as operações de:
 
-* **📤 Upload de Arquivos:** Envio de imagens e documentos para o container `imagens` na Azure.
-* **📂 Listagem em Tempo Real:** Visualização dinâmica de todos os blobs armazenados.
+* **📤 Upload de Arquivos:** Envio de imagens e documentos para o container `imagens` no Azure Blob Storage.
+* **📑 Auditoria Automática (New!):** Cada upload gera um log automático no **Azure Table Storage**, registrando nome do arquivo, data, hora e IP de origem.
+* **📂 Listagem Híbrida:** Visualização dinâmica dos arquivos armazenados e consulta ao histórico de logs de auditoria.
 * **📥 Download Direto:** Recuperação de arquivos da nuvem para a máquina local com um clique.
-* **🛡️ Segurança de Dados:** Gerenciamento de credenciais via variáveis de ambiente (`.env`) e proteção de chaves no Git.
+* **🛡️ Segurança de Dados:** Gerenciamento de credenciais via variáveis de ambiente (`.env`) para proteção de chaves sensíveis.
 
 ---
 
@@ -21,7 +22,8 @@ O sistema oferece uma interface web profissional e responsiva para realizar as o
 | :--- | :--- |
 | **Node.js** | Ambiente de execução JavaScript Server-side |
 | **Express** | Framework para rotas e middleware |
-| **Azure SDK** | Biblioteca `@azure/storage-blob` para comunicação com a nuvem |
+| **Azure Blob Storage** | Armazenamento de objetos para arquivos e imagens |
+| **Azure Table Storage** | Banco de dados NoSQL chave-valor para logs de auditoria |
 | **Tailwind CSS** | Framework CSS para interface moderna e responsiva |
 | **Multer** | Middleware para manipulação de arquivos (upload) |
 | **FontAwesome** | Biblioteca de ícones profissionais |
@@ -41,9 +43,9 @@ O sistema oferece uma interface web profissional e responsiva para realizar as o
     ```
 
 3.  **Configure o arquivo `.env`:**
-    Crie um arquivo `.env` na raiz e adicione sua Connection String da Azure:
+    Crie um arquivo `.env` na raiz do projeto e adicione sua Connection String da Azure:
     ```env
-    AZURE_STORAGE_CONNECTION_STRING="sua_chave_aqui"
+    AZURE_STORAGE_CONNECTION_STRING="sua_connection_string_aqui"
     ```
 
 4.  **Inicie o servidor:**
@@ -62,4 +64,4 @@ O sistema oferece uma interface web profissional e responsiva para realizar as o
 
 ---
 
-> **Nota:** Este projeto foi desenvolvido para fins acadêmicos e demonstra o domínio de infraestrutura em nuvem e integração de APIs.
+> **Nota:** Este projeto foi desenvolvido para fins acadêmicos e demonstra o domínio de infraestrutura em nuvem, integração de APIs e persistência de dados em serviços PaaS (Platform as a Service).
